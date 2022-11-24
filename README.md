@@ -29,25 +29,6 @@ $ vagrant plugin install vagrant-hostmanager --plugin-version 1.8.9
 vagrant up
 ```
 
-## Start nomad on myserver1
-
-```
-$ vagrant ssh
-$ sudo su
-# nomad agent -dev -bind 0.0.0.0 -log-level INFO
-...
-    2022-11-24T08:38:36.629Z [INFO]  nomad.raft: entering candidate state: node="Node at 10.0.2.15:4647 [Candidate]" term=2
-    2022-11-24T08:38:36.629Z [INFO]  nomad.raft: election won: term=2 tally=1
-    2022-11-24T08:38:36.629Z [INFO]  nomad.raft: entering leader state: leader="Node at 10.0.2.15:4647 [Leader]"
-    2022-11-24T08:38:36.630Z [INFO]  nomad: cluster leadership acquired
-    2022-11-24T08:38:36.631Z [INFO]  nomad.core: established cluster id: cluster_id=02427b33-add4-6681-da8e-3a05341ea187 create_time=1669279116631843802
-    2022-11-24T08:38:36.632Z [INFO]  nomad: eval broker status modified: paused=false
-    2022-11-24T08:38:36.632Z [INFO]  nomad: blocked evals status modified: paused=false
-    2022-11-24T08:38:36.633Z [INFO]  nomad.keyring: initialized keyring: id=ac58c048-f207-aafb-4568-8fa07522e53e
-    2022-11-24T08:38:36.695Z [INFO]  client: node registration complete
-    2022-11-24T08:38:37.697Z [INFO]  client: node registration complete
-```
-
 ## Install Nomad client on Fedora
 
 ```

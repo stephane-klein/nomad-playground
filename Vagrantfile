@@ -50,4 +50,28 @@ Vagrant.configure("2") do |config|
     end
     server.vm.provision "shell", path: "install.sh"
   end
+  config.vm.define :myserver2 do |server|
+    server.vm.box = "ubuntu/jammy64"
+    server.vm.hostname = "myserver2"
+    server.vm.synced_folder '.', '/vagrant/', disabled: false
+    server.vm.network "private_network", type: "dhcp"
+
+    server.vm.provider :virtualbox do |vb|
+      vb.memory = '2096'
+      vb.cpus = '1'
+    end
+    server.vm.provision "shell", path: "install.sh"
+  end
+  config.vm.define :myserver3 do |server|
+    server.vm.box = "ubuntu/jammy64"
+    server.vm.hostname = "myserver3"
+    server.vm.synced_folder '.', '/vagrant/', disabled: false
+    server.vm.network "private_network", type: "dhcp"
+
+    server.vm.provider :virtualbox do |vb|
+      vb.memory = '2096'
+      vb.cpus = '1'
+    end
+    server.vm.provision "shell", path: "install.sh"
+  end
 end

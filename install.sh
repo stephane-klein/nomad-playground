@@ -25,3 +25,7 @@ sudo service docker restart
 # Make sure we can actually use docker as the vagrant user
 sudo usermod -aG docker vagrant
 sudo docker --version
+
+# Configure Nomad
+sudo systemctl enable nomad
+sudo systemctl start nomad
