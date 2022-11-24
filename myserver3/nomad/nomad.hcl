@@ -9,9 +9,11 @@ server {
 
 client {
   enabled = true
-  servers = ["127.0.0.1"]
 
   server_join {
-    retry_join = ["myserver1:4648"]
+    retry_join = [
+        "myserver1:4648",
+        "myserver2:4648"
+    ]
   }
 }
