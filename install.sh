@@ -6,7 +6,7 @@ wget -qO- https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 sudo apt-get update -y
 sudo apt-get upgrade -y
-sudo apt-get install nomad -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get install nomad -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --force-yes
 
 # Install Docker
 sudo apt-get remove docker docker.io
