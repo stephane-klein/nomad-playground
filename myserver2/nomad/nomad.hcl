@@ -12,8 +12,10 @@ client {
 
   server_join {
     retry_join = [
-        "myserver1:4648"
-        "myserver3:4648"
+        "myserver1",
+        "myserver3"
     ]
+    retry_max = 3
+    retry_interval = "15s"
   }
 }
