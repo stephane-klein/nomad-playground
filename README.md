@@ -1,5 +1,7 @@
 # Nomad playground
 
+Vagrant [Nomad](https://www.nomadproject.io/) playground with 3 nodes.
+
 ## Prerequisite
 
 - Virtualbox
@@ -26,52 +28,43 @@ $ vagrant plugin install vagrant-hostmanager --plugin-version 1.8.9
 ## Start Vagrant host
 
 ```sh
-vagrant up
+$ vagrant up
 ```
 
-## Start nomad on myserver1
+```sh
+$ vagrant status
+Current machine states:
 
+myserver1                 running (virtualbox)
+myserver2                 running (virtualbox)
+myserver3                 running (virtualbox)
 ```
-$ vagrant ssh
-$ sudo su
-# nomad agent -dev -bind 0.0.0.0 -log-level INFO
-...
-    2022-11-24T08:38:36.629Z [INFO]  nomad.raft: entering candidate state: node="Node at 10.0.2.15:4647 [Candidate]" term=2
-    2022-11-24T08:38:36.629Z [INFO]  nomad.raft: election won: term=2 tally=1
-    2022-11-24T08:38:36.629Z [INFO]  nomad.raft: entering leader state: leader="Node at 10.0.2.15:4647 [Leader]"
-    2022-11-24T08:38:36.630Z [INFO]  nomad: cluster leadership acquired
-    2022-11-24T08:38:36.631Z [INFO]  nomad.core: established cluster id: cluster_id=02427b33-add4-6681-da8e-3a05341ea187 create_time=1669279116631843802
-    2022-11-24T08:38:36.632Z [INFO]  nomad: eval broker status modified: paused=false
-    2022-11-24T08:38:36.632Z [INFO]  nomad: blocked evals status modified: paused=false
-    2022-11-24T08:38:36.633Z [INFO]  nomad.keyring: initialized keyring: id=ac58c048-f207-aafb-4568-8fa07522e53e
-    2022-11-24T08:38:36.695Z [INFO]  client: node registration complete
-    2022-11-24T08:38:37.697Z [INFO]  client: node registration complete
-```
+
 
 ## Install Nomad client on Fedora
 
-```
+```sh
 $ sudo dnf install -y dnf-plugins-core
 $ sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
 $ sudo dnf -y install nomad
 ```
 
 ```sh
-$ direnv allow
+$ nomad server members
+Name              Address       Port  Status  Leader  Raft Version  Build  Datacenter  Region
+myserver1.global  192.168.56.9  4648  alive   true    3             1.4.3  dc1         global
+
+nomad-playground on  workinprogress via ⍱ v2.2.19
 $ nomad node status
 ID        DC   Name       Class   Drain  Eligibility  Status
-1ad1528a  dc1  myserver1  <none>  false  eligible     ready
-$ nomad status
-No running jobs
-
-$ nomad server members
-Name              Address    Port  Status  Leader  Raft Version  Build  Datacenter  Region
-myserver1.global  10.0.2.15  4648  alive   true    3             1.4.3  dc1         global
+6cf480d7  dc1  myserver2  <none>  false  eligible     ready
+6dbd0431  dc1  myserver3  <none>  false  eligible     ready
+3b5f8a8a  dc1  myserver1  <none>  false  eligible     ready
 ```
 
 ## Run first job
 
-```
+```sh
 $ nomad job run example.nomad
 ==> 2022-11-24T10:05:58+01:00: Monitoring evaluation "91877c91"
     2022-11-24T10:05:58+01:00: Evaluation triggered by job "example"
@@ -96,7 +89,44 @@ $ nomad job run example.nomad
 ```
 
 ```
-$ vagrant ssh
+$ nomad job status
+ID       Type     Priority  Status   Submit Date
+example  service  50        running  2022-11-25T00:21:58+01:00
+```
+
+```sh
+$ nomad job status example
+ID            = example
+Name          = example
+Submit Date   = 2022-11-25T00:21:58+01:00
+Type          = service
+Priority      = 50
+Datacenters   = dc1
+Namespace     = default
+Status        = running
+Periodic      = false
+Parameterized = false
+
+Summary
+Task Group  Queued  Starting  Running  Failed  Complete  Lost  Unknown
+cache       0       0         1        0       0         0     0
+
+Latest Deployment
+ID          = 91477fad
+Status      = successful
+Description = Deployment completed successfully
+
+Deployed
+Task Group  Desired  Placed  Healthy  Unhealthy  Progress Deadline
+cache       1        1       1        0          2022-11-24T23:32:17Z
+
+Allocations
+ID        Node ID   Task Group  Version  Desired  Status   Created    Modified
+2ac79e39  3b5f8a8a  cache       0        run      running  15h8m ago  15h8m ago
+```
+
+```sh
+$ vagrant ssh myserver1
 $ sudo su
 # docker ps
 CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS                                                  NAMES
