@@ -38,10 +38,10 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  config.vm.define :myserver do |server|
+  config.vm.define :myserver1 do |server|
     server.vm.box = "ubuntu/jammy64"
     server.vm.hostname = "myserver1"
-    server.vm.synced_folder '.', '/vagrant/', disabled: false
+    server.vm.synced_folder './myserver1/nomad/', '/etc/nomad.d/', disabled: false
     server.vm.network "private_network", type: "dhcp"
 
     server.vm.provider :virtualbox do |vb|
@@ -53,7 +53,7 @@ Vagrant.configure("2") do |config|
   config.vm.define :myserver2 do |server|
     server.vm.box = "ubuntu/jammy64"
     server.vm.hostname = "myserver2"
-    server.vm.synced_folder '.', '/vagrant/', disabled: false
+    server.vm.synced_folder './myserver2/nomad/', '/etc/nomad.d/', disabled: false
     server.vm.network "private_network", type: "dhcp"
 
     server.vm.provider :virtualbox do |vb|
@@ -65,7 +65,7 @@ Vagrant.configure("2") do |config|
   config.vm.define :myserver3 do |server|
     server.vm.box = "ubuntu/jammy64"
     server.vm.hostname = "myserver3"
-    server.vm.synced_folder '.', '/vagrant/', disabled: false
+    server.vm.synced_folder './myserver3/nomad/', '/etc/nomad.d/', disabled: false
     server.vm.network "private_network", type: "dhcp"
 
     server.vm.provider :virtualbox do |vb|
