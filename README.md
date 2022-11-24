@@ -26,8 +26,18 @@ $ vagrant plugin install vagrant-hostmanager --plugin-version 1.8.9
 ## Start Vagrant host
 
 ```sh
-vagrant up
+$ vagrant up
 ```
+
+```
+$ vagrant status
+Current machine states:
+
+myserver1                 running (virtualbox)
+myserver2                 running (virtualbox)
+myserver3                 running (virtualbox)
+```
+
 
 ## Install Nomad client on Fedora
 
@@ -77,7 +87,7 @@ $ nomad job run example.nomad
 ```
 
 ```
-$ vagrant ssh
+$ vagrant ssh myserver1
 $ sudo su
 # docker ps
 CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS                                                  NAMES
