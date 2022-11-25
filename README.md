@@ -65,27 +65,7 @@ ID        DC   Name       Class   Drain  Eligibility  Status
 ## Run first job
 
 ```sh
-$ nomad job run example.nomad
-==> 2022-11-24T10:05:58+01:00: Monitoring evaluation "91877c91"
-    2022-11-24T10:05:58+01:00: Evaluation triggered by job "example"
-    2022-11-24T10:05:58+01:00: Evaluation within deployment: "1084eb62"
-    2022-11-24T10:05:58+01:00: Allocation "f36eaa20" created: node "993689a0", group "cache"
-    2022-11-24T10:05:58+01:00: Evaluation status changed: "pending" -> "complete"
-==> 2022-11-24T10:05:58+01:00: Evaluation "91877c91" finished with status "complete"
-==> 2022-11-24T10:05:58+01:00: Monitoring deployment "1084eb62"
-  ⠼ Deployment "1084eb62" in progress...
-
-    2022-11-24T10:06:23+01:00
-    ID          = 1084eb62
-    Job ID      = example
-    Job Version = 0
-    Status      = running
-    Description = Deployment is running
-
-    Deployed
-    Task Group  Desired  Placed  Healthy  Unhealthy  Progress Deadline
-    cache       1        1       0        0          2022-11-24T09:15:58Z^Z
-[1]  + 622059 suspended  nomad job run example.nomad
+$ nomad job run http-echo-hello.nomad
 ```
 
 ```
