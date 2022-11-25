@@ -19,6 +19,7 @@ job "http-echo-hello" {
             config {
                 image = "hashicorp/http-echo"
                 args  = ["-text", "hello world"]
+                ports = ["http"]
             }
         }
     }
