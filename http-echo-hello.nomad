@@ -2,6 +2,11 @@ job "http-echo-hello" {
     datacenters = ["dc1"]
     type = "service"
 
+    constraint {
+        attribute = "${node.unique.name}"
+        value = "myserver1"
+    }
+
     group "http-echo" {
         network {
             port "http" {
