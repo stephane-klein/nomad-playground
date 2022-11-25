@@ -18,4 +18,8 @@ server {
 
 client {
   enabled = true
+
+  host_network "public" {
+      interface = "enp0s8"
+  }
 }

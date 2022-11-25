@@ -11,6 +11,7 @@ job "http-echo-hello" {
         network {
             port "http" {
                 static = "5678"
+                host_network = "public"
             }
         }
 
