@@ -22,4 +22,8 @@ client {
   host_network "public" {
       interface = "enp0s8"
   }
+
+  host_volume "volumetest1" {
+    path = "/etc/ssl/certs"
+  }
 }
